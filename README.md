@@ -22,10 +22,11 @@ EventHub is a full-stack web application built for Advanced Events (Pty) Ltd. It
 
 | Member | Role | Responsibilities |
 |--------|------|-----------------|
-| [Member 1 Name] | Team Lead + Frontend | App scaffold, Home page, EJS partials, README, GitHub |
-| [Member 2 Name] | Backend Developer | Express routes, controllers, middleware, booking logic |
-| [Member 3 Name] | Database Engineer | Mongoose schemas, MongoDB Atlas, Contact page |
-| [Member 4 Name] | Security / Auth | bcrypt, sessions, auth middleware, role protection |
+| Miles Pieterse - 602327 | Team Lead + Frontend | App scaffold, Home page, EJS partials, README, GitHub |
+| Ntando Phiri - 604348 | Backend Developer — Events & Bookings | Express routes, controllers, middleware, booking logic |
+| Kgotso Matemoja - 576606 | Database Engineer | Mongoose schemas, MongoDB Atlas, Contact page |
+| Omphile Moche - 602132 | Security / Auth | bcrypt, sessions, auth middleware, role protection |
+| Daniel Greyling - 603197 | Backend Developer — Contact, Search & API Testing | Contact page backend, Search & filtering logic, API Testing | 
 
 ## Features
 

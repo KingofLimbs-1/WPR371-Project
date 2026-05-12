@@ -1,0 +1,92 @@
+/* Global */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: #f8f9fa;
+  color: #1a1a2e;
+}
+
+/* Hero section */
+.hero-section {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-bottom: 3px solid #ffc107;
+}
+
+/* Event cards */
+.event-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.event-img-placeholder {
+  height: 140px;
+  background: linear-gradient(135deg, #1a1a2e, #0f3460) !important;
+}
+
+/* Navbar */
+.navbar-brand {
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+/* Badges */
+.bg-orange {
+  background-color: #fd7e14;
+}
+
+/* Buttons */
+.btn-warning {
+  font-weight: 600;
+}
+
+/* Forms */
+.form-control:focus,
+.form-select:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+
+/* Auth cards */
+.auth-card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Table styles */
+.table thead th {
+  background-color: #1a1a2e;
+  color: white;
+  font-weight: 500;
+  border: none;
+}
+
+/* Footer */
+footer a:hover {
+  color: #ffc107 !important;
+  text-decoration: none;
+}
+
+/* Utility */
+.section-title {
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: #ffc107;
+  border-radius: 2px;
+}

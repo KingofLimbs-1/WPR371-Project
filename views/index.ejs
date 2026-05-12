@@ -1,0 +1,157 @@
+<%- include('partials/head', { title: 'Home' }) %>
+<%- include('partials/navbar') %>
+
+<!-- Hero section -->
+<section class="hero-section text-white text-center py-5 mb-4">
+  <div class="container py-4">
+    <h1 class="display-5 fw-bold mb-3">
+      <i class="bi bi-calendar-event-fill text-warning me-3"></i>
+      Find Your Next Event
+    </h1>
+    <p class="lead mb-4 text-white-50">
+      Discover concerts, conferences, workshops and more.<br />
+      Book your tickets in seconds.
+    </p>
+
+    <!-- Search & filter form -->
+    <form action="/" method="GET" class="row g-2 justify-content-center mt-2">
+      <div class="col-12 col-md-4">
+        <input
+          type="text"
+          name="search"
+          class="form-control form-control-lg"
+          placeholder="Search events..."
+          value="<%= typeof search !== 'undefined' ? search : '' %>"
+        />
+      </div>
+      <div class="col-6 col-md-2">
+        <select name="category" class="form-select form-select-lg">
+          <option value="">All categories</option>
+          <option value="conference"  <%= typeof category !== 'undefined' && category === 'conference'  ? 'selected' : '' %>>Conference</option>
+          <option value="workshop"    <%= typeof category !== 'undefined' && category === 'workshop'    ? 'selected' : '' %>>Workshop</option>
+          <option value="concert"     <%= typeof category !== 'undefined' && category === 'concert'     ? 'selected' : '' %>>Concert</option>
+          <option value="festival"    <%= typeof category !== 'undefined' && category === 'festival'    ? 'selected' : '' %>>Festival</option>
+          <option value="private"     <%= typeof category !== 'undefined' && category === 'private'     ? 'selected' : '' %>>Private</option>
+        </select>
+      </div>
+      <div class="col-6 col-md-2">
+        <input
+          type="date"
+          name="date"
+          class="form-control form-control-lg"
+          value="<%= typeof date !== 'undefined' ? date : '' %>"
+        />
+      </div>
+      <div class="col-12 col-md-2">
+        <button type="submit" class="btn btn-warning btn-lg w-100">
+          <i class="bi bi-search me-1"></i>Search
+        </button>
+      </div>
+      <% if (typeof search !== 'undefined' && search || typeof category !== 'undefined' && category || typeof date !== 'undefined' && date) { %>
+        <div class="col-12 col-md-1">
+          <a href="/" class="btn btn-outline-light btn-lg w-100">Clear</a>
+        </div>
+      <% } %>
+    </form>
+  </div>
+</section>
+
+<!-- Events listing -->
+<main class="container mb-5">
+
+  <!-- Results count -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h5 class="mb-0 fw-semibold">
+      <% if (typeof events !== 'undefined' && events.length > 0) { %>
+        <%= events.length %> event<%= events.length !== 1 ? 's' : '' %> found
+      <% } else { %>
+        Upcoming Events
+      <% } %>
+    </h5>
+    <% if (currentUser && currentUser.role === 'admin') { %>
+      <a href="/events/new" class="btn btn-warning btn-sm">
+        <i class="bi bi-plus-circle me-1"></i>Add Event
+      </a>
+    <% } %>
+  </div>
+
+  <!-- Event cards -->
+  <% if (typeof events !== 'undefined' && events.length > 0) { %>
+    <div class="row g-4">
+      <% events.forEach(event => { %>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card h-100 shadow-sm event-card">
+
+            <!-- Category badge -->
+            <div class="card-img-top event-img-placeholder d-flex align-items-center justify-content-center bg-dark">
+              <i class="bi bi-calendar-event text-warning" style="font-size: 3rem;"></i>
+            </div>
+
+            <div class="card-body d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span class="badge bg-warning text-dark text-capitalize">
+                  <%= event.category %>
+                </span>
+                <% if (event.ticketsLeft <= 0) { %>
+                  <span class="badge bg-danger">Sold Out</span>
+                <% } else if (event.ticketsLeft <= 10) { %>
+                  <span class="badge bg-orange text-white">
+                    <%= event.ticketsLeft %> left
+                  </span>
+                <% } %>
+              </div>
+
+              <h5 class="card-title fw-bold"><%= event.title %></h5>
+
+              <p class="text-muted small mb-1">
+                <i class="bi bi-calendar3 me-1"></i>
+                <%= new Date(event.date).toLocaleDateString('en-ZA', {
+                  weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'
+                }) %>
+              </p>
+              <p class="text-muted small mb-2">
+                <i class="bi bi-geo-alt me-1"></i>
+                <%= event.location || 'Venue TBC' %>
+              </p>
+              <p class="card-text text-muted small flex-grow-1">
+                <%= event.description ? event.description.substring(0, 100) + '...' : '' %>
+              </p>
+
+              <div class="d-flex justify-content-between align-items-center mt-3">
+                <span class="fw-bold text-dark">
+                  <% if (event.price && event.price > 0) { %>
+                    R<%= event.price.toFixed(2) %>
+                  <% } else { %>
+                    <span class="text-success">Free</span>
+                  <% } %>
+                </span>
+                <a
+                  href="/events/<%= event._id %>"
+                  class="btn btn-sm <%= event.ticketsLeft <= 0 ? 'btn-secondary disabled' : 'btn-dark' %>"
+                >
+                  <%= event.ticketsLeft <= 0 ? 'Sold Out' : 'View & Book' %>
+                  <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+  <% } else { %>
+    <!-- Empty state -->
+    <div class="text-center py-5">
+      <i class="bi bi-calendar-x text-muted" style="font-size: 4rem;"></i>
+      <h5 class="mt-3 text-muted">No events found</h5>
+      <p class="text-muted small">
+        Try adjusting your search or check back soon for upcoming events.
+      </p>
+      <a href="/" class="btn btn-outline-dark btn-sm mt-2">View all events</a>
+    </div>
+  <% } %>
+
+</main>
+
+<%- include('partials/footer') %>

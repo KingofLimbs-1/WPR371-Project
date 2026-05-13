@@ -1,13 +1,24 @@
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
 
-// ── Booking routes (Member 2 — Backend)
-// POST /bookings            → create booking with capacity check
-// GET  /bookings/my-bookings → user booking history
-// GET  /bookings/dashboard  → admin analytics dashboard
-// DELETE /bookings/:id      → cancel booking
+const {
+    isAuthenticated
+} = require("../middleware/authMiddleware");
 
-router.get('/my-bookings', (req, res) => res.send('My bookings — Member 2 to implement'));
-router.get('/dashboard',   (req, res) => res.send('Admin dashboard — Member 2 to implement'));
+const {
+    isAdmin
+} = require("../middleware/roleMiddleware");
+
+
+// Logged in users only
+router.get("/my-bookings", isAuthenticated, (req, res) =>
+    res.send("My bookings — logged in user")
+);
+
+
+// Admin only
+router.get("/dashboard", isAuthenticated, isAdmin, (req, res) =>
+    res.send("Admin dashboard")
+);
 
 module.exports = router;

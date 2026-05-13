@@ -1,0 +1,87 @@
+<%- include('../partials/head', { title: title }) %>
+<%- include('../partials/navbar') %>
+
+<main class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+
+      <div class="d-flex align-items-center mb-4">
+        <a href="/events/manage" class="btn btn-outline-secondary btn-sm me-3">
+          <i class="bi bi-arrow-left"></i>
+        </a>
+        <h2 class="fw-bold mb-0">
+          <i class="bi bi-pencil-fill text-warning me-2"></i>Edit Event
+        </h2>
+      </div>
+
+      <div class="card shadow-sm">
+        <div class="card-body p-4">
+          <form action="/events/<%= event._id %>?_method=PUT" method="POST">
+
+            <div class="mb-3">
+              <label for="title" class="form-label fw-semibold">Event Title <span class="text-danger">*</span></label>
+              <input type="text" id="title" name="title" class="form-control" value="<%= event.title %>" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label fw-semibold">Description</label>
+              <textarea id="description" name="description" class="form-control" rows="3"><%= event.description || '' %></textarea>
+            </div>
+
+            <div class="row g-3 mb-3">
+              <div class="col-12 col-sm-6">
+                <label for="date" class="form-label fw-semibold">Date & Time <span class="text-danger">*</span></label>
+                <input
+                  type="datetime-local"
+                  id="date"
+                  name="date"
+                  class="form-control"
+                  value="<%= new Date(event.date).toISOString().slice(0,16) %>"
+                  required
+                >
+              </div>
+              <div class="col-12 col-sm-6">
+                <label for="category" class="form-label fw-semibold">Category <span class="text-danger">*</span></label>
+                <select id="category" name="category" class="form-select" required>
+                  <option value="conference" <%= event.category === 'conference' ? 'selected' : '' %>>Conference</option>
+                  <option value="workshop"   <%= event.category === 'workshop'   ? 'selected' : '' %>>Workshop</option>
+                  <option value="concert"    <%= event.category === 'concert'    ? 'selected' : '' %>>Concert</option>
+                  <option value="festival"   <%= event.category === 'festival'   ? 'selected' : '' %>>Festival</option>
+                  <option value="private"    <%= event.category === 'private'    ? 'selected' : '' %>>Private</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="location" class="form-label fw-semibold">Location</label>
+              <input type="text" id="location" name="location" class="form-control" value="<%= event.location || '' %>">
+            </div>
+
+            <div class="row g-3 mb-4">
+              <div class="col-12 col-sm-6">
+                <label for="capacity" class="form-label fw-semibold">Capacity <span class="text-danger">*</span></label>
+                <input type="number" id="capacity" name="capacity" class="form-control" min="1" value="<%= event.capacity %>" required>
+                <div class="form-text">Current tickets left: <%= event.ticketsLeft %></div>
+              </div>
+              <div class="col-12 col-sm-6">
+                <label for="price" class="form-label fw-semibold">Price (R)</label>
+                <input type="number" id="price" name="price" class="form-control" min="0" step="0.01" value="<%= event.price || 0 %>">
+              </div>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-warning fw-semibold">
+                <i class="bi bi-save me-1"></i>Save Changes
+              </button>
+              <a href="/events/manage" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

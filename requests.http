@@ -1,0 +1,34 @@
+### CREATE CONTACT
+POST http://localhost:3000/contact
+Content-Type: application/json
+
+{
+    "name": "Daniel",
+    "email": "daniel@gmail.com",
+    "subject": "Ticket Problem",
+    "message": "I cannot book tickets."
+}
+
+
+### GET CONTACTS
+GET http://localhost:3000/contact
+
+
+### GET ALL EVENTS
+GET http://localhost:3000/events
+
+
+### SEARCH EVENTS BY TITLE
+GET http://localhost:3000/events?title=music
+
+
+### FILTER EVENTS BY CATEGORY
+GET http://localhost:3000/events?category=Festival
+
+
+### FILTER EVENTS BY DATE
+GET http://localhost:3000/events?date=2026-05-20
+
+
+### FILTER AVAILABLE EVENTS
+GET http://localhost:3000/events?available=true

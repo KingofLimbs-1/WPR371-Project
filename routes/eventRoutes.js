@@ -1,5 +1,8 @@
 const express = require('express');
 const router  = express.Router();
+const {
+    getEvents
+} = require("../controllers/eventController");
 
 // Event routes (Member 2 — Backend)
 // GET  /events              → list all events
@@ -16,5 +19,6 @@ const router  = express.Router();
 router.get('/', (req, res) => res.send('Events route — Member 2 to implement'));
 router.get('/manage', (req, res) => res.send('Event management — Member 2 to implement'));
 router.get('/:id', (req, res) => res.send('Event detail — Member 2 to implement'));
+router.get("/", getEvents);
 
 module.exports = router;

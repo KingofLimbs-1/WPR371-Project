@@ -1,24 +1,14 @@
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
 
-// Auth routes (Member 4 — Security) 
-// GET  /auth/login     → show login form
-// POST /auth/login     → handle login
-// GET  /auth/register  → show register form
-// POST /auth/register  → handle registration
-// POST /auth/logout    → logout user
+const authController = require("../controllers/authController");
 
-router.get('/login', (req, res) => {
-  res.render('auth/login', { title: 'Login' });
-});
+router.get("/login", authController.showLogin);
+router.post("/login", authController.loginUser);
 
-router.get('/register', (req, res) => {
-  res.render('auth/register', { title: 'Register' });
-});
+router.get("/register", authController.showRegister);
+router.post("/register", authController.registerUser);
 
-router.post('/logout', (req, res) => {
-  req.session.destroy();
-  res.redirect('/');
-});
+router.post("/logout", authController.logoutUser);
 
 module.exports = router;

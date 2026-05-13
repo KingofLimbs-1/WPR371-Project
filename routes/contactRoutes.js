@@ -1,15 +1,18 @@
-const express = require('express');
-const router  = express.Router();
+const express = require("express");
+const router = express.Router();
+
 const {
     createContact,
     getContacts
 } = require("../controllers/contactController");
 
-// ── Contact routes (Member 3 — Database) ─────────────────────────────────────
-// GET  /contact   → show contact form
-// POST /contact   → save enquiry to DB
+const {
+    isAuthenticated
+} = require("../middleware/authMiddleware");
 
-// TODO: Member 3 — implement contact form submission and admin enquiry view
+const {
+    isAdmin
+} = require("../middleware/roleMiddleware");
 
 // POST CONTACT FORM
 router.post("/models/Contact.js", async (req,res) => {
@@ -21,6 +24,12 @@ router.post("/models/Contact.js", async (req,res) => {
     }
 });
 
+// PUBLIC CONTACT FORM
+router.get("/", (req, res) => {
+    res.render("contact", {
+        title: "Contact Us"
+    });
+});
 
 // GET ALL CONTACTS
 router.get("/models/Enquiry.js", async (req,res) => {
@@ -32,7 +41,17 @@ router.get("/models/Enquiry.js", async (req,res) => {
     }
 });
 
-router.get('/', (req, res) => res.render('contact', { title: 'Contact Us' }));
+// ANY USER CAN SUBMIT
+router.post("/", createContact);
+
+
+// ONLY ADMIN CAN VIEW ALL ENQUIRIES
+router.get(
+    "/admin",
+    isAuthenticated,
+    isAdmin,
+    getContacts
+);
 
 //read one
 router.get('/', async (req,res) => {
@@ -94,3 +113,4 @@ module.exports = router;
 
 
 
+module.exports = router;

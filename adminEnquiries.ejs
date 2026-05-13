@@ -1,0 +1,33 @@
+<%- include('partials/head', { title: 'Home' }) %>
+<%- include('partials/navbar') %>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Enquiries</title>
+</head>
+<body>
+
+  <h1>Submitted Enquiries</h1>
+
+  <table border="1">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Message</th>
+      <th>Date</th>
+    </tr>
+
+    <% enquiries.forEach(enquiry => { %>
+      <tr>
+        <td><%= enquiry.name %></td>
+        <td><%= enquiry.email %></td>
+        <td><%= enquiry.message %></td>
+        <td><%= enquiry.createdAt.toDateString() %></td>
+      </tr>
+    <% }) %>
+
+  </table>
+
+</body>
+</html>

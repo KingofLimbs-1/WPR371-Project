@@ -13,6 +13,24 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
+  const db = mongoose.connection;
+
+ db.on("connected", ()=>{
+    console.log("mongodb connected"); 
+});
+db.on("err", (err)=>{
+    console.log("connect error:"+err); 
+});
+db.on("disconnected", ()=>{
+    console.log("mongodb disconnected"); 
+});
+
+process.on("SIGINT", async()=>{
+  await mongoose.connection.close();
+  console.log("connection closed");
+  process.exit(0);
+});
+
 // ── View engine ───────────────────────────────────────────────────────────────
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

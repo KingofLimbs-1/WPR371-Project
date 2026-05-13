@@ -1,3 +1,33 @@
+<%- include('partials/head', { title: 'Home' }) %>
+<%- include('partials/navbar') %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Contact us</title>
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    
+<h1>Contact / Enquiry Form</h1>
+
+  <form action="/contact" method="POST">
+    <label>Name:</label><br>
+    <input type="text" name="name" required><br><br>
+
+    <label>Email:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Message:</label><br>
+    <textarea name="message" required></textarea><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  </body>
+</html>
 <%- include("partials/head") %>
 <%- include("partials/navbar") %>
 
